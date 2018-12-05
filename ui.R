@@ -1,6 +1,9 @@
 library(shiny)
 
 # UI
+
+
+
 ui <- fluidPage(
   
   #App title
@@ -10,9 +13,14 @@ ui <- fluidPage(
     
     
     sidebarPanel(
+      choices <- c("Charges", "DateDiff", "paperedi.E", "paperedi.P", "CCtier.Mid",
+                   "CCtier.Top", "CarrierType.Commercial", "CarrierType.Medicaid",
+                   "CarrierType.BlueCross.BlueShield", "CarrierType.Medicare",
+                   "CarrierType.Other", "CarrierType.Other Federal Program",
+                   "CarrierType.Tricare", "PatientBalPres", "paycode.CO", "paycode.PR"),
       
       checkboxGroupInput("var", "Variable Options",
-                         choices = names(df[2:15]),
+                         choices = choices,
                          select = c("Charges", "DateDiff", "paperedi.E", "paperedi.P", "CCtier.Mid",
                                     "CCtier.Top", "CarrierType.Commercial", "CarrierType.Medicaid",
                                     "CarrierType.BlueCross.BlueShield", "CarrierType.Medicare",
