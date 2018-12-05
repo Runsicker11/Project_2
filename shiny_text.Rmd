@@ -1,0 +1,49 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Optimizing the Performance of Service Professionals
+
+### The Process:
+
+*	Identified opportunity
+
+*	Using SQL, billing data was collected by the AdvancedMD Practice Management Software
+
+*	Preprocessed the data frame in R
+
+*	Built logistic regression model using 70/30 train to test split
+
+*	Applied model on test data to see performance and help make better business decision
+
+### The Opportunity:
+
+AdvancedMD employs over 70 service medical associates servicing medical billing for hundreds of clients. Each employee oversees several practices, who sees up to 200+ patient visits in a week. The insurance claims go out, but many can face a myriad of problems. To optimize time and resources of our associates, it would be ideal to know which claims are more urgent and have a bigger impact for the practice. The purpose of this model is to identify claims with a strong likelihood of being paid at least 40% of the original charge. 
+	
+### The Data:
+
+AdvancedMD offers software to practices in the ambulatory healthcare space (Smaller medical practices and clinics). They also offer a medical billing service. The data used for this model was collected from the product that AdvancedMD offers. Data from over 400 clients were used to predict the likelihood of a successful payment. Since most offices usually charge significantly more than they know will be paid, I decided that a successful payment was when 40% of the charge was received from the insurance company. Successful claims are identified with a "1". If claims were paid below 25%, they are identified as a "0".
+The Data was prepared using the dataPreparation package in R. One hot encoder was used for the categorical variables. The numeric variables have been scaled
+
+### The Analysis:
+
+There are many factors that go into a payment from an insurance carrier. I identified some variables that I thought would have a larger impact:
+	
+*	Charge amount: This is the amount the practice charges the carrier for the claim
+
+*	Days to Respond: This calculates the time it takes for an insurance company to respond to a claim. The idea behind this is to identify which carriers are taking a longer time to respond and are less likely to pay
+
+*	Submission type: This categorical variable identifies claims submitted and paid electronically or by paper. Electronic is preferred because it is faster, and there is a better chance of response.
+
+*	Charge Code Tier (Procedure code): Ideally, I would have liked to break it down by each charge code, to see which charges get paid.  However,there were too many codes for a shiny app to handle, so I broke it down into tiers (top, mid and low) based on how often they get submitted.
+
+*	 Carrier Type: It would have been preferable to look at each carrier, but again there are too many that are serviced, and it would have taken too long for the shiny app to run. I categorized the carrier types into 7 groups (e.g., Medicare, Medicaid, Commercial insurers ang large insurers such as Blue Cross Blue Shield.)
+
+* Patient Balance Present: if the charge had an associated Patient charge like a copay or to meet deductible
+
+* Paycode: to see what paycode was associated with the charge
+
+### The Model:
+
+  I chose to run a logistic regression to help identify which variables have the biggest impact. This information could prove beneficial for managers and executives. I ran the model using all the variables. The model produced an accuracy of 67%. These results could have been better but having to narrow down the charge codes and carriers for the purposes of making this shiny app, I think we are missing a very important part. I will work with management to create a more robust model that can handle millions of rows with hundreds of columns. Unfortunately, we could not do that for this model.
